@@ -4,20 +4,7 @@ set -e
 function error { echo -e "[Error] $*"; exit 1; }
 function warn  { echo -e "[Warning] $*"; }
 
-warn "This installer is no longer supported."
-warn ""
-warn "Home Assistant might work today, tomorrow maybe not."
-warn ""
-warn "If you want more control over your own system, run"
-warn "Home Assistant as a VM or run Home Assistant Core"
-warn "via a Docker container."
-warn ""
-echo 'Please typ "not supported" to continue this installation'
-read x
-if [ "$x" != "not supported" ]; then
-  echo "OK, bye!"
-  exit 1
-fi
+warn "This way to run Home Assistant is carfully and should be only used if the OS is not possible to run!"
 
 ARCH=$(uname -m)
 DOCKER_BINARY=/usr/bin/docker
@@ -29,14 +16,12 @@ URL_BIN_HASSIO="https://raw.githubusercontent.com/home-assistant/supervised-inst
 URL_BIN_APPARMOR="https://raw.githubusercontent.com/home-assistant/supervised-installer/master/files/hassio-apparmor"
 URL_SERVICE_HASSIO="https://raw.githubusercontent.com/home-assistant/supervised-installer/master/files/hassio-supervisor.service"
 URL_SERVICE_APPARMOR="https://raw.githubusercontent.com/home-assistant/supervised-installer/master/files/hassio-apparmor.service"
-URL_APPARMOR_PROFILE="https://version.home-assistant.io/apparmor.txt"
 
 # Check env
 command -v systemctl > /dev/null 2>&1 || error "Only systemd is supported!"
 command -v docker > /dev/null 2>&1 || error "Please install docker first"
 command -v jq > /dev/null 2>&1 || error "Please install jq first"
 command -v curl > /dev/null 2>&1 || error "Please install curl first"
-command -v avahi-daemon > /dev/null 2>&1 || error "Please install avahi first"
 command -v dbus-daemon > /dev/null 2>&1 || error "Please install dbus first"
 command -v nmcli > /dev/null 2>&1 || warn "No NetworkManager support on host."
 command -v apparmor_parser > /dev/null 2>&1 || warn "No AppArmor support on host."
